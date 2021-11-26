@@ -1,5 +1,5 @@
 import React , {Component} from 'react';
-import {Card, CardImg,CardBody,CardTitle,CardText, Media} from 'reactstrap';
+import {Card, CardImg,CardBody,CardTitle,CardText} from 'reactstrap';
 class Dishdetails extends Component{
     renderDish(dish){
         if (dish != null){
@@ -24,11 +24,15 @@ class Dishdetails extends Component{
             <h4>Comments</h4>
             <list className="list-unstyled" style={{height:"100%"}}>
                 <p>{dish.comments[0].comment}</p>
-                <p>---{dish.comments[0].author},{dish.comments[0].date}</p>
+                <p>---{dish.comments[0].author}, {new Intl.DateTimeFormat('en-US', {year:'numeric',month:'short',day:'2-digit'}).format(new Date(Date.parse(dish.comments[0].date)))}</p>
                 <p>{dish.comments[1].comment}</p>               
-                <p> ---{dish.comments[1].author},{dish.comments[1].date}</p>
+                <p> ---{dish.comments[1].author}, {new Intl.DateTimeFormat('en-US', {year:'numeric',month:'short',day:'2-digit'}).format(new Date(Date.parse(dish.comments[1].date)))}</p>
                 <p>{dish.comments[2].comment}</p>
-                <p>---{dish.comments[2].author},{dish.comments[2].date}</p>
+                <p>---{dish.comments[2].author}, {new Intl.DateTimeFormat('en-US', {year:'numeric',month:'short',day:'2-digit'}).format(new Date(Date.parse(dish.comments[2].date)))}</p>
+                <p>{dish.comments[3].comment}</p>
+                <p>---{dish.comments[3].author}, {new Intl.DateTimeFormat('en-US', {year:'numeric',month:'short',day:'2-digit'}).format(new Date(Date.parse(dish.comments[3].date)))}</p>
+                <p>{dish.comments[4].comment}</p>
+                <p>---{dish.comments[4].author}, {new Intl.DateTimeFormat('en-US', {year:'numeric',month:'short',day:'2-digit'}).format(new Date(Date.parse(dish.comments[4].date)))}</p>
             </list>
             </div>
        )
@@ -38,12 +42,12 @@ class Dishdetails extends Component{
     }
 }
 render(){
-    const {selectedDish} = this.props;
+    const {dish} = this.props;
     return(
         <div className="container">
         <div className="row">
-        {this.renderDish(selectedDish)}
-        {this.renderComments(selectedDish)}
+        {this.renderDish(dish)}
+        {this.renderComments(dish)}
         </div>
         </div>
         );
