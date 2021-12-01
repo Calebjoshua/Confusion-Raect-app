@@ -1,11 +1,12 @@
 import React from 'react';
-import {Card, CardImg,CardBody,CardTitle,CardText} from 'reactstrap';
+import {Card, CardImg,CardBody,CardTitle,CardText, Breadcrumb, BreadcrumbItem} from 'reactstrap';
+import {Link} from 'react-router-dom';
 function  RenderDish({dish}){
     if (dish != null){
         return(
-            <div className="col-12 col-md-5 m-1">
-                <Card style={{width:"100%"}}>
-                    <CardImg width="100%" src={dish.image} alt={dish.name} />
+            <div className="col-12  m-1" >
+                <Card >
+                    <CardImg top src={dish.image} alt={dish.name} />
                 <CardBody>
                     <CardTitle>{dish.name}</CardTitle>
                     <CardText>{dish.description}</CardText>
@@ -17,23 +18,20 @@ function  RenderDish({dish}){
                  return <div></div>
             }
         }
-function RenderComments({dish}){
-        if(dish != null){
+function RenderComments({comments}){
+        if(comments != null){
             return( 
-            <div className="col-12 col-md-5 m-1" >
+            <div className="col-12  m-1">
             <h4>Comments</h4>
-            <list className="list-unstyled" style={{height:"100%"}}>
-                <p>{dish.comments[0].comment}</p>
-                <p>---{dish.comments[0].author}, {new Intl.DateTimeFormat('en-US', {year:'numeric',month:'short',day:'2-digit'}).format(new Date(Date.parse(dish.comments[0].date)))}</p>
-                <p>{dish.comments[1].comment}</p>               
-                <p> ---{dish.comments[1].author}, {new Intl.DateTimeFormat('en-US', {year:'numeric',month:'short',day:'2-digit'}).format(new Date(Date.parse(dish.comments[1].date)))}</p>
-                <p>{dish.comments[2].comment}</p>
-                <p>---{dish.comments[2].author}, {new Intl.DateTimeFormat('en-US', {year:'numeric',month:'short',day:'2-digit'}).format(new Date(Date.parse(dish.comments[2].date)))}</p>
-                <p>{dish.comments[3].comment}</p>
-                <p>---{dish.comments[3].author}, {new Intl.DateTimeFormat('en-US', {year:'numeric',month:'short',day:'2-digit'}).format(new Date(Date.parse(dish.comments[3].date)))}</p>
-                <p>{dish.comments[4].comment}</p>
-                <p>---{dish.comments[4].author}, {new Intl.DateTimeFormat('en-US', {year:'numeric',month:'short',day:'2-digit'}).format(new Date(Date.parse(dish.comments[4].date)))}</p>
-             </list>
+            <ul className="lis-unstyled">
+            {comments.map((comment) =>
+            { return ( 
+                <li key={comment.id}>
+                    <p>{comment.comment}</p>
+                    <p>--- {comment.author}, {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))} </p>
+                </li>
+            )})}
+            </ul>
             </div>
        )
     }
@@ -42,14 +40,30 @@ function RenderComments({dish}){
     }
 }
 const Dishdetails =(props) =>{
-    const {dish} =props;
-    return(
-        <div className="container">
-        <div className="row">
-        <RenderDish dish={dish} />
-        <RenderComments dish={dish} />
-        </div>
-        </div>
-        );
+    if(props.dish != null){
+        return (
+            <div className="container">
+            <div className="row">
+                <Breadcrumb>
+
+                    <BreadcrumbItem><Link to="/menu">Menu</Link></BreadcrumbItem>
+                    <BreadcrumbItem><Link to="/contactUs">ContactUs</Link></BreadcrumbItem>
+                    <BreadcrumbItem active>{props.dish.name}</BreadcrumbItem>
+                </Breadcrumb>
+                <div className="col-12">
+                    <h3>{props.dish.name}</h3>
+                    <hr />
+                </div>                
+            </div>
+            <div className="row">
+                <div className="col-12 col-md-5 m-1">
+                    <RenderDish dish={props.dish} />
+                </div>
+                <div className="col-12 col-md-5 m-1">
+                    <RenderComments comments={props.comments} />
+                </div>
+            </div>
+            </div>
+        );}
     }
 export default Dishdetails;
