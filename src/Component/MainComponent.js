@@ -5,6 +5,7 @@ import Dishdetails from './Dishdetails';
 import Header from './Header';
 import Contact from './Contact';
 import Footer from './Footer';
+import AboutUs from './AboutUs';
 import {DISHES} from '../shared/dishes';
 import {LEADERS} from '../shared/Leaders';
 import {PROMOTIONS} from '../shared/Promotions';
@@ -34,6 +35,11 @@ class Main extends React.Component{
               comments={this.state.comments.filter((comment) => comment.dishId === parseInt(match.params.dishId))}
       />)
     }
+    const About = () =>{
+      return(
+        <AboutUs leader={this.state.leaders} />
+      )
+    }
   return (
     <div className="App">
       <Header />
@@ -42,6 +48,7 @@ class Main extends React.Component{
         <Route exact path="/menu" component={() => <Menu dishes={this.state.dishes}/>} />
         <Route path="/menu/:dishId" component={dishWithId} />
         <Route exact path="/contactUs" component={Contact} />
+        <Route path="/aboutUs" component={About} />
         <Redirect to="/home" />
       </Switch>
      <Footer />
