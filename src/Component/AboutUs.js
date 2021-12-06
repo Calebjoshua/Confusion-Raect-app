@@ -3,11 +3,6 @@ import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, Media } from 'r
 import { Link } from 'react-router-dom';
 function AboutUs(props) {
 
-    const leaders = props.leader.map((leader) => {
-        return (
-            <p>Leader {leader.name}</p>
-        );
-    });
     const RenderLeader = props.leader.map((leader) => {
         return (
           <div key={leader.id} className="col-12 mt-5">
@@ -24,6 +19,11 @@ function AboutUs(props) {
           </div>
         );
     });
+    function Leaders(props) {
+        return (
+           <div>{props.RenderLeaders }</div> 
+           );
+    }
     return(
         <div className="container">
             <div className="row">
@@ -80,7 +80,7 @@ function AboutUs(props) {
                 </div>
                 <div className="col-12">
                     <Media list>
-                        {RenderLeader}
+                       <Leaders RenderLeaders={RenderLeader} />
                     </Media>
                 </div>
             </div>
